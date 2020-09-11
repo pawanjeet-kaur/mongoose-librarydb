@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="style.css" rel="stylesheet">
+    </head>
+    <body>
+        <h1>List of Authors</h1>
+        <p>
+            <a href="/">Homepage</a>
+        </p>
+        <br>
+        <table>
+            <tr>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>D.O.B.</td>
+                <td>State</td>
+                <td>Suburb</td>
+                <td>Street</td>
+                <td>Unit</td>
+                <td>No. of books</td>
+                <td>ID</td>
+            </tr>
+            <% for (let i=0;i<authorsDB.length;i++){ %>
+                <tr>
+                    <td><%= authorsDB[i].name.firstName%> </td>
+                    <td> <%= authorsDB[i].name.lastName %> </td>
+                    <td><%= authorsDB[i].dob %></td>
+                    <td><%= authorsDB[i].address.state %></td>
+                    <td><%= authorsDB[i].address.suburb %></td>
+                    <td><%= authorsDB[i].address.street %></td>
+                    <td><%= authorsDB[i].address.unit %></td>
+                    <td><%= authorsDB[i].numBooks %></td>
+                    <td><%= authorsDB[i]._id %></td>
+                </tr>
+                <%}
+                %>
+        </table>
+    </body>
+</html>
