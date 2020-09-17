@@ -16,6 +16,7 @@
                 <td>Author</td>
                 <td>Publication Date</td>
                 <td>Summary</td>
+                <td>Author ABN</td>
             </tr>
             <% for (let i=0;i<booksDb.length;i++){ %>
                 <tr>
@@ -24,6 +25,7 @@
                     <td><%= booksDb[i].author.name.firstName + " " + booksDb[i].author.name.lastName %></td>
                     <td><%= booksDb[i].publicationDate %></td>
                     <td><%= booksDb[i].summary %></td>
+                    <td><%= booksDb[i].author.abn %></td>
                 </tr>
                 <%}
                 %>

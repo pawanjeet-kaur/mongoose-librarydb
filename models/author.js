@@ -32,6 +32,28 @@ let authorSchema = mongoose.Schema({
             },
             message: 'Number of books must be an integer between 1 and 150'
         }
+    },
+    abn:{
+        type: String,
+        required: false,
+        get: function(abnVal) {
+            if(!abnVal){
+                return "-";
+            }
+            else{
+                let str = abnVal.slice(0, 2) + " " + abnVal.slice(2, 5)+ " " + abnVal.slice(5,8)+ " " + abnVal.slice(8);
+                return str;
+            }
+
+        },
+        validate: {
+            validator: function(abnVal){
+                return !isNaN(abnVal) && abnVal.length == 11;
+            },
+            message: 'ABN must be 11 numeric characters'
+        }
+      
+        
     }
 });
 

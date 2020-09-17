@@ -22,11 +22,11 @@ app.listen(8080);
 
 let url = 'mongodb://localhost:27017/libraryDB';
 
-mongoose.connect(url, function(err){
-    if(err){ 
+mongoose.connect(url, function (err) {
+    if (err) {
         console.log(err)
     }
-    else{
+    else {
         console.log('Connected')
     }
 });
@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/newbook', (req, res) => {
-    res.sendFile(__dirname+'/views/newbook.html');
+    res.sendFile(__dirname + '/views/newbook.html');
 });
 
 app.post('/newbookpost', (req, res) => {
@@ -50,39 +50,40 @@ app.post('/newbookpost', (req, res) => {
         author: bookDetails.author
 
     });
-    book.save(function (err){
-        if(err){
+    book.save(function (err) {
+        if (err) {
             console.log(err);
             res.redirect('/newbook');
         }
-        else{
+        else {
             console.log('Book saved');
             res.redirect('/listbooks');
         }
     });
 
     Author.findByIdAndUpdate(
-        {_id: bookDetails.author}, {$inc:{numBooks: 1}},
-        function(err, result){
-            if(err) console.log(err);
-            else{
+        { _id: bookDetails.author }, { $inc: { numBooks: 1 } },
+        function (err, result) {
+            if (err) console.log(err);
+            else {
                 console.log('Authors no. books updated');
             }
         }
-        );
-    
+    );
+
 })
 
 app.get('/newauthor', (req, res) => {
-    res.sendFile(__dirname+'/views/newauthor.html');
+    res.sendFile(__dirname + '/views/newauthor.html');
 
 });
 
-app.post('/newauthorpost', (req, res) =>{
+app.post('/newauthorpost', (req, res) => {
     let authorDetails = req.body;
+    
     let author = new Author({
         _id: new mongoose.Types.ObjectId(),
-        name:{
+        name: {
             firstName: authorDetails.firstName,
             lastName: authorDetails.lastName
         },
@@ -93,15 +94,16 @@ app.post('/newauthorpost', (req, res) =>{
             street: authorDetails.street,
             unit: authorDetails.unit
         },
-        numBooks: authorDetails.numBooks
+        numBooks: authorDetails.numBooks,
+        abn: authorDetails.abn
     })
 
-    author.save(function (err){
-        if(err){
+    author.save(function (err) {
+        if (err) {
             console.log(err);
             res.redirect('/newauthor');
         }
-        else{
+        else {
             console.log('Author saved');
             res.redirect('/listauthors');
         }
@@ -122,33 +124,33 @@ app.get('/listauthors', (req, res) => {
 });
 
 app.get('/updateauthor', (req, res) => {
-    res.sendFile(__dirname+'/views/updateauthor.html');
+    res.sendFile(__dirname + '/views/updateauthor.html');
 });
 
-app.post('/updateauthorspost', (req, res) =>{
+app.post('/updateauthorspost', (req, res) => {
     let authorDetails = req.body;
     Author.findByIdAndUpdate(
-        {_id: authorDetails.author_id}, 
-        {numBooks: authorDetails.numBooks},
-        {runValidation: true},
-        function(err, result){
-            if(err) console.log(err);
-            else{
+        { _id: authorDetails.author_id },
+        { numBooks: authorDetails.numBooks },
+        { runValidation: true },
+        function (err, result) {
+            if (err) console.log(err);
+            else {
                 res.redirect('/listauthors');
             }
         }
-        );
+    );
 });
 
 app.get('/deletebook', (req, res) => {
-    res.sendFile(__dirname+'/views/deletebook.html');
+    res.sendFile(__dirname + '/views/deletebook.html');
 });
 
 app.post('/deletebookpost', (req, res) => {
     let bookDetails = req.body;
     Book.deleteOne(
-        {'isbn': bookDetails.isbn}, 
-        function(err, doc){
+        { 'isbn': bookDetails.isbn },
+        function (err, doc) {
             console.log(doc);
         }
     );

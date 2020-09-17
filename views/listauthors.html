@@ -20,6 +20,7 @@
                 <td>Unit</td>
                 <td>No. of books</td>
                 <td>ID</td>
+                <td>ABN</td>
             </tr>
             <% for (let i=0;i<authorsDB.length;i++){ %>
                 <tr>
@@ -32,6 +33,9 @@
                     <td><%= authorsDB[i].address.unit %></td>
                     <td><%= authorsDB[i].numBooks %></td>
                     <td><%= authorsDB[i]._id %></td>
+                    <td>
+                        <%= authorsDB[i].abn %>
+                    </td>
                 </tr>
                 <%}
                 %>
